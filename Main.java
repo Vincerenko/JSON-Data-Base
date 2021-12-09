@@ -1,26 +1,28 @@
 package server;
 
-import java.util.Scanner;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
 
 public class Main {
 
+    private static final int SERVER_PORT = 23456;
+
     public static void main(String[] args) {
-        ListDataBase listDataBase = new ListDataBase();
-       Scanner sc = new Scanner(System.in);
-       while (sc.hasNext()){
-           String[] typeOfRequest = sc.nextLine().split(" ",3);
-           if (typeOfRequest[0].equals("get")) {
-              listDataBase.get(Integer.parseInt(typeOfRequest[1]));
-           }
-           else if (typeOfRequest[0].equals("set")){
-               listDataBase.set(Integer.parseInt(typeOfRequest[1]),typeOfRequest[2]);
-           }
-           else if (typeOfRequest[0].equals("delete")) {
-               listDataBase.delete(Integer.parseInt(typeOfRequest[1]));
-           }
-           else if(typeOfRequest[0].equals("exit")){
-               return;
-           }
-       }
+        System.out.println("Server started!");
+        try (ServerSocket server = new ServerSocket(SERVER_PORT)) {
+            Socket socket = server.accept();
+            DataInputStream inputStream = new DataInputStream(socket.getInputStream());
+            DataOutputStream outputStream = new DataOutputStream(socket.getOutputStream());
+            String output = "A record # 12 was sent!";
+            System.out.println("Received: " + inputStream.readUTF());
+            System.out.println("Sent: " + output);
+            outputStream.writeUTF(output);
+        } catch (IOException e) {
+
+            System.out.println("Server was interrupted");
+        }
     }
 }
