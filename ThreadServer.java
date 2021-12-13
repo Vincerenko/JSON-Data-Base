@@ -8,7 +8,8 @@ import java.net.Socket;
 
 public class ThreadServer extends Thread {
     private static final int SERVER_PORT = 23456;
-    private final static RequestToDB REQUEST_TO_DB = new RequestToDB();
+    //private final static RequestToDB REQUEST_TO_DB = new RequestToDB();
+    private static final RequestToDbMap REQUEST_TO_DB_MAP = new RequestToDbMap();
     private boolean isActive;
 
     void disable(){
@@ -29,8 +30,8 @@ public class ThreadServer extends Thread {
                 String request = inputStream.readUTF();
                 int sizeOfArgs = Integer.parseInt(inputStream.readUTF());
 
-                outputStream.writeUTF(String.valueOf(REQUEST_TO_DB.start(request, sizeOfArgs)));
-                if ((String.valueOf(REQUEST_TO_DB.start(request, sizeOfArgs)).equals("exit"))) {
+                outputStream.writeUTF(String.valueOf(REQUEST_TO_DB_MAP.start(request, sizeOfArgs)));
+                if ((String.valueOf(REQUEST_TO_DB_MAP.start(request, sizeOfArgs)).equals("exit"))) {
                     disable();
                 }
 
