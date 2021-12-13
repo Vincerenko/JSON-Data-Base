@@ -17,32 +17,29 @@ public class ListDataBase {
     }
 
 
-    public int set(int index, String value) {
+    public String set(int index, String value) {
         if (index < 1001 && index > 0) {
             STRING_ARRAY_LIST.set(index, value);
-            System.out.println("OK");
         }
-        return index;
+        return "Received: OK";
     }
 
-    public int get(int index){
+    public String get(int index) {
         if (index < 1001 && index > 0 && !STRING_ARRAY_LIST.get(index).equals("")) {
-            System.out.println(STRING_ARRAY_LIST.get(index));
+            return "Received: " + STRING_ARRAY_LIST.get(index);
+        } else {
+            return "Received: ERROR";
         }
-        else{
-            System.out.println("ERROR");
-        }
-        return index;
+
     }
-    public int delete(int index) {
+
+    public String delete(int index) {
         if (index < 1001 && index > 0) {
             STRING_ARRAY_LIST.remove(index);
             STRING_ARRAY_LIST.set(index, "");
-            System.out.println("OK");
-            return index;
-        } else {
-            System.out.println("ERROR");
-            return index;
+            return "Received: OK";
         }
+        return "Received: ERROR";
+
     }
 }

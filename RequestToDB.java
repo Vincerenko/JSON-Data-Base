@@ -1,23 +1,21 @@
 package server;
 
 public class RequestToDB {
-    public  void start(String request) {
+    public Object start(String request, int sizeSplit) {
         ListDataBase listDataBase = new ListDataBase();
-            String[] splitTypeOfRequest = request.split(" ", 5);
+        String[] splitTypeOfRequest = request.split(" ", sizeSplit);
 
-            switch (splitTypeOfRequest[1]) {
-                case "get":
-                    listDataBase.get(Integer.parseInt(splitTypeOfRequest[3]));
-                    break;
-                case "set":
-                    listDataBase.set(Integer.parseInt(splitTypeOfRequest[3]), splitTypeOfRequest[6]);
-                    break;
-                case "delete":
-                    listDataBase.delete(Integer.parseInt(splitTypeOfRequest[4]));
-                    break;
-                case "exit":
-                    return;
+        switch (splitTypeOfRequest[1]) {
+            case "get":
+                return listDataBase.get(Integer.parseInt(splitTypeOfRequest[3]));
+            case "set":
+               return listDataBase.set(Integer.parseInt(splitTypeOfRequest[3]), splitTypeOfRequest[5]);
+            case "delete":
+               return listDataBase.delete(Integer.parseInt(splitTypeOfRequest[3]));
+            case "exit":
+                return "exit";
             }
-
+        return "wrong input";
     }
 }
+
