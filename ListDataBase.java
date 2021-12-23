@@ -8,41 +8,38 @@ import java.util.List;
  */
 
 public class ListDataBase {
-    private static final List<String> STRING_ARRAY_LIST = new ArrayList<>(110);
+    private static final List<String> STRING_ARRAY_LIST = new ArrayList<>(1010);
 
     public ListDataBase() {
-        for (int i = 0; i < 110; i++) {
+        for (int i = 0; i < 1100; i++) {
             STRING_ARRAY_LIST.add("");
         }
     }
 
 
-    public int set(int index, String value) {
-        if (index < 101 && index > 0) {
+    public String set(int index, String value) {
+        if (index < 1001 && index > 0) {
             STRING_ARRAY_LIST.set(index, value);
-            System.out.println("OK");
         }
-        return index;
+        return "Received: OK";
     }
 
-    public int get(int index){
-        if (index < 101 && index > 0 && !STRING_ARRAY_LIST.get(index).equals("")) {
-            System.out.println(STRING_ARRAY_LIST.get(index));
+    public String get(int index) {
+        if (index < 1001 && index > 0 && !STRING_ARRAY_LIST.get(index).equals("")) {
+            return "Received: " + STRING_ARRAY_LIST.get(index);
+        } else {
+            return "Received: ERROR";
         }
-        else{
-            System.out.println("ERROR");
-        }
-        return index;
+
     }
-    public int delete(int index) {
-        if (index < 101 && index > 0) {
+
+    public String delete(int index) {
+        if (index < 1001 && index > 0) {
             STRING_ARRAY_LIST.remove(index);
             STRING_ARRAY_LIST.set(index, "");
-            System.out.println("OK");
-            return index;
-        } else {
-            System.out.println("ERROR");
-            return index;
+            return "Received: OK";
         }
+        return "Received: ERROR";
+
     }
 }
